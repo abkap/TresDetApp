@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tres_det/authentication/authentication_services.dart';
 import 'package:tres_det/components/cards.dart';
 import 'package:tres_det/components/text_styles.dart';
 
@@ -14,7 +15,15 @@ class HomePage extends StatelessWidget {
           child: SafeArea(
             child: Container(
               color: Colors.orange,
-              child: Text("coming soon..."),
+              child: TextButton(
+                child: Text("signout"),
+                onPressed: () async {
+                  var result = await signOut();
+                  if (result == "signout successfull") {
+                    Navigator.pushReplacementNamed(context, "signin_page");
+                  }
+                },
+              ),
             ),
           ),
         ),

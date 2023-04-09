@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "165411154671",
+    "firebase_url": "https://tresdet-478dd-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "tresdet-478dd",
+    "storage_bucket": "tresdet-478dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:165411154671:android:422cf1f64143411f29091a",
+        "android_client_info": {
+          "package_name": "com.example.tres_det"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "165411154671-dquli90fkupe35b0oi2f2ju913150cuk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbpmDyopJfqL_JN5rFSC-onDGJjcLLJ40"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "165411154671-dquli90fkupe35b0oi2f2ju913150cuk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "165411154671-9pg887ud34k8f6uo1q8dluen2h1k9i4t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tresDet"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
