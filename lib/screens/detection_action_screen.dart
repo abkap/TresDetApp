@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
         drawer: Drawer(
           child: SafeArea(
             child: Container(
-              color: Colors.orange,
+              color: Colors.white,
               child: TextButton(
                 child: Text("signout"),
                 onPressed: () async {
