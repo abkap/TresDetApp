@@ -1,7 +1,16 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class AlertInformationCard extends StatelessWidget {
-  const AlertInformationCard({super.key});
+  const AlertInformationCard(
+      {super.key,
+      required this.dateTime,
+      required this.animal,
+      required this.accuracy});
+  final String dateTime;
+  final String animal;
+  final double accuracy;
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +20,9 @@ class AlertInformationCard extends StatelessWidget {
           height: 10,
         ),
         ListTile(
-          title: Text("Elephant detected in farm field 1"),
-          trailing: Text("11:29 Am"),
+          title: Text(
+              "${animal} detected ( ${(accuracy * 100).toStringAsFixed(2)} ) !!"),
+          trailing: Text(dateTime.split(" ")[1]),
         ),
         Divider(
           color: Colors.grey,
