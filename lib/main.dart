@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'TreDet - An intruder detection system',
       theme: ThemeData(primarySwatch: Colors.green),
-      initialRoute: 'signin_screen',
+      initialRoute: 'signin_page',
       routes: {
         "signin_page": (context) => SignInPage(),
         'home_page': (context) => HomePage()

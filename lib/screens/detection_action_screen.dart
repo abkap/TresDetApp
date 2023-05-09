@@ -68,15 +68,16 @@ class _HomePageState extends State<HomePage> {
                   }
 
                   return ListView(
-                    children:
-                        snapshot.data!.docs.map((DocumentSnapshot document) {
-                      Map<String, dynamic> data =
-                          document.data()! as Map<String, dynamic>;
-                      return DayWiseInformation(
-                        date: data["Date"],
-                        tresspasserAlerts: data,
-                      );
-                    }).toList(),
+                    children: SortedInformation(snapshot),
+                    // children:
+                    //     snapshot.data!.docs.map((DocumentSnapshot document) {
+                    //   Map<String, dynamic> data =
+                    //       document.data()! as Map<String, dynamic>;
+                    //   return DayWiseInformation(
+                    //     date: data["Date"],
+                    //     tresspasserAlerts: data,
+                    //   );
+                    // }).toList(),
                   );
                   // return ListView(
                   //   children: [
@@ -140,4 +141,28 @@ class DayWiseInformation extends StatelessWidget {
       ),
     );
   }
+}
+
+List<Widget> SortedInformation(AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
+  List<QueryDocumentSnapshot<Object?>> detectionList = []
+    ..addAll(snapshot.data!.docs);
+
+  detectionList.sort((a, b) {
+    Map<String, dynamic> data1 = a.data() as Map<String, dynamic>;
+    Map<String, dynamic> data2 = b.data() as Map<String, dynamic>;
+    return data2['Date']
+        .compareTo(data1['Date']); // since we want in descending order
+  });
+
+  print(snapshot.data!.docs
+      .map((doc) => doc.data()! as Map<String, dynamic>)
+      .toList());
+
+  return detectionList.map((DocumentSnapshot document) {
+    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+    return DayWiseInformation(
+      date: data["Date"],
+      tresspasserAlerts: data,
+    );
+  }).toList();
 }
