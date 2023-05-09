@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tres_det/authentication/authentication_services.dart';
 import 'package:tres_det/components/cards.dart';
 import 'package:tres_det/components/text_styles.dart';
+import 'package:tres_det/screens/image_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -69,26 +70,7 @@ class _HomePageState extends State<HomePage> {
 
                   return ListView(
                     children: SortedInformation(snapshot),
-                    // children:
-                    //     snapshot.data!.docs.map((DocumentSnapshot document) {
-                    //   Map<String, dynamic> data =
-                    //       document.data()! as Map<String, dynamic>;
-                    //   return DayWiseInformation(
-                    //     date: data["Date"],
-                    //     tresspasserAlerts: data,
-                    //   );
-                    // }).toList(),
                   );
-                  // return ListView(
-                  //   children: [
-                  //     DayWiseInformation(
-                  //       date: "Today",
-                  //     ),
-                  //     DayWiseInformation(
-                  //       date: "Yestarday",
-                  //     ),
-                  //   ],
-                  // );
                 }),
             // next tabbar view
             ListView(
@@ -116,28 +98,42 @@ class _HomePageState extends State<HomePage> {
 
 class DayWiseInformation extends StatelessWidget {
   const DayWiseInformation(
-      {super.key, required this.date, required this.tresspasserAlerts});
+      {super.key,
+      required this.date,
+      required this.tresspasserAlerts,
+      required this.publicImgUrl});
 
   final String date;
   final Map<String, dynamic> tresspasserAlerts;
+  final String publicImgUrl;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10.0),
-      // color: Color.fromARGB(255, 255, 255, 255),
-      child: Column(
-        children: [
-          Center(
-              child: Text(
-            date.split(" ")[0], // Date only
-            style: TextStyle(color: Colors.grey, fontSize: 18.0),
-          )),
-          AlertInformationCard(
-              dateTime: tresspasserAlerts['Date'],
-              animal: tresspasserAlerts["AnimalName"],
-              accuracy: tresspasserAlerts["Accuracy"]),
-        ],
+    return GestureDetector(
+      onTap: () {
+        // push to img screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DetectedImageScreen(imgUrl: publicImgUrl)),
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.all(10.0),
+        // color: Color.fromARGB(255, 205, 59, 59),
+        child: Column(
+          children: [
+            Center(
+                child: Text(
+              date.split(" ")[0], // Date only
+              style: TextStyle(color: Colors.grey, fontSize: 18.0),
+            )),
+            AlertInformationCard(
+                dateTime: tresspasserAlerts['Date'],
+                animal: tresspasserAlerts["AnimalName"],
+                accuracy: tresspasserAlerts["Accuracy"]),
+          ],
+        ),
       ),
     );
   }
@@ -163,6 +159,7 @@ List<Widget> SortedInformation(AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
     return DayWiseInformation(
       date: data["Date"],
       tresspasserAlerts: data,
+      publicImgUrl: data["PublicUrl"],
     );
   }).toList();
 }
