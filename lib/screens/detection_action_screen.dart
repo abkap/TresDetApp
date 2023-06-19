@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tres_det/authentication/authentication_services.dart';
 import 'package:tres_det/components/cards.dart';
-import 'package:tres_det/components/text_styles.dart';
 import 'package:tres_det/screens/image_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,75 +22,42 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        drawer: Drawer(
-          child: SafeArea(
-            child: Container(
-              color: Colors.white,
-              child: TextButton(
-                child: Text("signout"),
-                onPressed: () async {
-                  var result = await signOut();
-                  if (result == "signout successfull") {
-                    Navigator.pushReplacementNamed(context, "signin_page");
-                  }
-                },
-              ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "TresDet",
+          style: TextStyle(fontSize: 25),
+        ),
+        actions: [
+          TextButton(
+            child: Text(
+              "signout",
+              style: TextStyle(color: Colors.white, fontSize: 18),
             ),
+            onPressed: () async {
+              var result = await signOut();
+              if (result == "signout successfull") {
+                Navigator.pushReplacementNamed(context, "signin_page");
+              }
+            },
           ),
-        ),
-        appBar: AppBar(
-          title: Text(
-            "TresDet",
-            style: TextStyle(fontSize: 25),
-          ),
-          bottom: TabBar(tabs: [
-            TabBarText("Detections"),
-            TabBarText("Actions"),
-          ]),
-        ),
-        body: TabBarView(
-          children: [
-            // first tabbar view content
-            // detection view
-
-            StreamBuilder<QuerySnapshot>(
-                stream: collectionStream,
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Text('Something went wrong');
-                  }
-
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Text("Loading");
-                  }
-
-                  return ListView(
-                    children: SortedInformation(snapshot),
-                  );
-                }),
-            // next tabbar view
-            ListView(
-              children: [
-                ActionInformationCard(
-                  animalName: "Birds",
-                  detectionType: "Ultrasonic sound : 50KHz",
-                ),
-                ActionInformationCard(
-                  animalName: "Birds",
-                  detectionType: "Ultrasonic sound : 50KHz",
-                ),
-                ActionInformationCard(
-                  animalName: "Birds",
-                  detectionType: "Ultrasonic sound : 50KHz",
-                ),
-              ],
-            )
-          ],
-        ),
+        ],
       ),
+      body: StreamBuilder<QuerySnapshot>(
+          stream: collectionStream,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Text('Something went wrong');
+            }
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Text("Loading");
+            }
+
+            return ListView(
+              children: SortedInformation(snapshot),
+            );
+          }),
     );
   }
 }

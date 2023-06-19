@@ -3,6 +3,7 @@ import 'package:tres_det/authentication/signin_page.dart';
 import 'package:tres_det/components/cards.dart';
 import 'package:tres_det/screens/detection_action_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tres_det/screens/spash_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -22,12 +23,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'TreDet - An intruder detection system',
       theme: ThemeData(primarySwatch: Colors.green),
-      initialRoute: 'signin_page',
+      initialRoute: '/',
       routes: {
+        "/": (context) => SplashScreen(),
         "signin_page": (context) => SignInPage(),
         'home_page': (context) => HomePage()
       },
-      home: const SignInPage(),
     );
   }
 }
